@@ -27,7 +27,12 @@ public class PuzzleController {
     public PuzzleController() {
         logger.info("PuzzleController initialized");
     }
-
+    
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/puzzle.html";
+    }
+    
     @GetMapping("/images")
     public ResponseEntity<List<PuzzleImage>> getImages() {
         logger.info("Handling GET /api/puzzle/images");
