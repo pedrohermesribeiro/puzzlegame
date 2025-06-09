@@ -168,7 +168,7 @@ header {
     left: 0;
     width: 98%;
     height: 4%;
-    min-height: 40px;
+    min-height: 5%;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -176,11 +176,11 @@ header {
 header h1 {
     font-family: 'Montserrat', Arial, sans-serif;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 120%;
     position: absolute;
     left: 46%;
     transform: translateX(-50%);
-    top: 18px;
+    top: 35%;
     margin: 0;
 }
 
