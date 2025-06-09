@@ -245,7 +245,7 @@ footer .social-links a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 16%;
+    margin-top: 8%;
 }
 
 #preview-image {
@@ -262,11 +262,11 @@ footer .social-links a:hover {
     border: 2px solid #b58863;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 16%;
+    margin-top: 8%;
 }
 
 #piece-column {
-    width: 15%;
+    width: 13%;
     min-height: 60%;
     background-color: #f5e8c7;
     border: 2px solid #b58863;
@@ -277,7 +277,7 @@ footer .social-links a:hover {
     flex-direction: column;
     align-items: center;
     padding: 0;
-    margin-top: 16%;
+    margin-top: 8%;
 }
 
 header h1 {
@@ -291,14 +291,14 @@ header h1 {
     margin: 0;
 }
 
-#titulo-cutis{
+#titulo-cuts{
     font-size: 80%;
-    min-width: 80%;
+    min-width: 120%;
 }
 
 #titulo-image{
     font-size: 80%;
-    min-width: 80%;
+    min-width: 120%;
 }
     
 }
