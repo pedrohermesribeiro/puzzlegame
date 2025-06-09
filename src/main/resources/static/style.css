@@ -293,12 +293,20 @@ header h1 {
 
 #titulo-cuts{
     font-size: 80%;
-    min-width: 120%;
+    min-width: 100%;
 }
 
 #titulo-image{
     font-size: 80%;
-    min-width: 120%;
+    min-width: 100%;
+}
+
+.div-cuts{
+    min-width: 100%;
+}
+
+.div-select-image{
+    min-width: 100%;
 }
     
 }
