@@ -303,10 +303,21 @@ header h1 {
 
 .div-cuts{
     min-width: 100%;
+    margin-top: 0%;
 }
 
 .div-select-image{
     min-width: 100%;
+    margin-top: 0%;
+}
+
+.div-btn-iniciar{
+    margin-top: 0%;
+    margin-left: 5%;
+}
+
+.div-progress{
+    margin-top: 0%;
 }
     
 }
