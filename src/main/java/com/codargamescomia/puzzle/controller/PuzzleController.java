@@ -28,10 +28,10 @@ public class PuzzleController {
         logger.info("PuzzleController initialized");
     }
     
-    @GetMapping("/")
+    /*@GetMapping("/")
     public String home() {
         return "redirect:/puzzle.html";
-    }
+    }*/
     
     @GetMapping("/images")
     public ResponseEntity<List<PuzzleImage>> getImages() {
