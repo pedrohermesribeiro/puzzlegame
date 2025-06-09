@@ -256,7 +256,7 @@ footer .social-links a:hover {
 
 #puzzle-board {
     width: 60%px;
-    min-height: 60%;
+    min-height: 50%;
     display: grid;
     background-color: #fff;
     border: 2px solid #b58863;
@@ -267,7 +267,7 @@ footer .social-links a:hover {
 
 #piece-column {
     width: 13%;
-    min-height: 60%;
+    min-height: 50%;
     background-color: #f5e8c7;
     border: 2px solid #b58863;
     border-radius: 8px;
@@ -308,7 +308,7 @@ header h1 {
 
 .div-select-image{
     min-width: 100%;
-    margin-top: 0%;
+    margin-top: -10%;
 }
 
 .div-btn-iniciar{
