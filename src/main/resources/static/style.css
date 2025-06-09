@@ -176,7 +176,7 @@ header {
 header h1 {
     font-family: 'Montserrat', Arial, sans-serif;
     font-weight: 700;
-    font-size: 120%;
+    font-size: 100%;
     position: absolute;
     left: 46%;
     transform: translateX(-50%);
@@ -229,4 +229,44 @@ footer .social-links a {
 
 footer .social-links a:hover {
     text-decoration: underline;
+}
+
+
+/* Celulares (até 600px) */
+@media (max-width: 600px) {
+
+
+#puzzle-preview {
+    width: 30%; /* Tamanho reduzido da miniatura */
+    min-height: 25%;
+    border: 2px solid #b58863;
+    border-radius: 8px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20%;
+}
+
+#preview-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Mantém proporção da imagem */
+}
+
+#puzzle-board {
+    width: 60%px;
+    min-height: 60%;
+    display: grid;
+    background-color: #fff;
+    border: 2px solid #b58863;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20%;
+}
+
+
+
+
+    
 }
