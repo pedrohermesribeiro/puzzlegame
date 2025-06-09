@@ -291,6 +291,14 @@ header h1 {
     margin: 0;
 }
 
+#titulo-cutis{
+    font-size: 80%;
+    min-width: 80%;
+}
 
+#titulo-image{
+    font-size: 80%;
+    min-width: 80%;
+}
     
 }
