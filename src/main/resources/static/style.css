@@ -256,7 +256,7 @@ footer .social-links a:hover {
 
 #puzzle-board {
     width: 60%px;
-    max-height: 60%;
+    max-height: 50%;
     display: grid;
     background-color: #fff;
     border: 2px solid #b58863;
@@ -267,7 +267,7 @@ footer .social-links a:hover {
 
 #piece-column {
     width: 13%;
-    max-height: 60%;
+    max-height: 50%;
     background-color: #f5e8c7;
     border: 2px solid #b58863;
     border-radius: 8px;
