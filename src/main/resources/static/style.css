@@ -237,7 +237,7 @@ footer .social-links a:hover {
 
 
 #puzzle-preview {
-    width: 30%; /* Tamanho reduzido da miniatura */
+    width: 25%; /* Tamanho reduzido da miniatura */
     min-height: 25%;
     border: 2px solid #b58863;
     border-radius: 8px;
@@ -256,7 +256,7 @@ footer .social-links a:hover {
 }
 
 #puzzle-board {
-    min-width: 70%;
+    min-width: 55%;
     max-height: 40%;
     display: grid;
     background-color: #fff;
@@ -267,7 +267,7 @@ footer .social-links a:hover {
 }
 
 #piece-column {
-    width: 13%;
+    width: 15%;
     max-height: 40%;
     background-color: #f5e8c7;
     border: 2px solid #b58863;
