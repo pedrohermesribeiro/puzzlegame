@@ -256,7 +256,7 @@ footer .social-links a:hover {
 }
 
 #puzzle-board {
-    min-width: 100%px;
+    min-width: 100%;
     max-height: 40%;
     display: grid;
     background-color: #fff;
