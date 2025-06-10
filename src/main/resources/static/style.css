@@ -245,7 +245,7 @@ footer .social-links a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 8%;
+    margin-top: 6%;
 }
 
 #preview-image {
@@ -256,18 +256,18 @@ footer .social-links a:hover {
 
 #puzzle-board {
     width: 60%px;
-    max-height: 50%;
+    max-height: 40%;
     display: grid;
     background-color: #fff;
     border: 2px solid #b58863;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 8%;
+    margin-top: 6%;
 }
 
 #piece-column {
     width: 13%;
-    max-height: 50%;
+    max-height: 40%;
     background-color: #f5e8c7;
     border: 2px solid #b58863;
     border-radius: 8px;
@@ -277,7 +277,7 @@ footer .social-links a:hover {
     flex-direction: column;
     align-items: center;
     padding: 0;
-    margin-top: 8%;
+    margin-top: 6%;
 }
 
 header h1 {
@@ -320,6 +320,20 @@ header h1 {
     margin-top: 0%;
     display: flex;
     align-items: end;
+    font-size: 80%;
+}
+
+header {
+    background-color: #566296;
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 98%;
+    max-height: 3%;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
     
 }
