@@ -115,7 +115,7 @@ body {
     align-items: flex-start;
     gap: 10px;
     margin: 20px auto;
-    max-width: 650px; /* Ajustado para caber miniatura + tabuleiro + coluna */
+    max-width: 95%; /* Ajustado para caber miniatura + tabuleiro + coluna */
 }
 
 #puzzle-preview {
