@@ -246,7 +246,7 @@ footer .social-links a:hover {
     align-items: baseline;
     justify-content: baseline;
     margin-top: 6%;
-    margin-left: 2%;
+    margin-left: 1%;
 }
 
 #preview-image {
@@ -267,7 +267,7 @@ footer .social-links a:hover {
 }
 
 #piece-column {
-    min-width: 15%;
+    min-width: 20%;
     max-height: 40%;
     background-color: #f5e8c7;
     border: 2px solid #b58863;
