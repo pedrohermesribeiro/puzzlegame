@@ -243,9 +243,10 @@ footer .social-links a:hover {
     border-radius: 8px;
     background-color: #fff;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: baseline;
+    justify-content: baseline;
     margin-top: 6%;
+    margin-left: 2%;
 }
 
 #preview-image {
@@ -255,7 +256,7 @@ footer .social-links a:hover {
 }
 
 #puzzle-board {
-    width: 60%px;
+    min-width: 60%px;
     max-height: 40%;
     display: grid;
     background-color: #fff;
