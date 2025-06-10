@@ -235,6 +235,9 @@ footer .social-links a:hover {
 /* Celulares (até 600px) */
 @media (max-width: 600px) {
 
+  .puzzle-layout{
+    min-width: 100%;
+  }  
 
 #puzzle-preview {
     width: 25%; /* Tamanho reduzido da miniatura */
@@ -247,6 +250,7 @@ footer .social-links a:hover {
     justify-content: baseline;
     margin-top: 6%;
     margin-left: 0%;
+    float: left;
 }
 
 #preview-image {
