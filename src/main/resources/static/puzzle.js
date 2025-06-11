@@ -4,8 +4,13 @@ let piecePositions = []; // Tracks which piece is in each board cell (or null if
 let availablePieces = []; // Tracks pieces in the column
 let corretas = 0;
 let total = 0;
-document.getElementById("corretas").textContent = "Certas: "+ corretas;
+let selectedPieceIndex = null; // NEW: Tracks the currently selected piece
+// Variável global para armazenar a proporção da imagem
+let imageAspectRatio = 1;
+
+document.getElementById("corretas").textContent = "Certas: " + corretas;
 document.getElementById("total").textContent = "Tentativas: " + total;
+
 
 // Load images from backend
 async function loadImageLibrary() {
@@ -37,9 +42,15 @@ function processImage(img, cuts) {
     const canvas = document.getElementById('puzzle-canvas');
     const ctx = canvas.getContext('2d');
     const gridSize = Math.sqrt(cuts);
+    
+    // Calcula a proporção da imagem
+    imageAspectRatio = img.width / img.height;
+    
+    // Ajusta o tamanho do canvas para manter a proporção
     canvas.width = img.width;
     canvas.height = img.height;
     ctx.drawImage(img, 0, 0);
+    
     pieces = [];
     for (let i = 0; i < gridSize; i++) {
         for (let j = 0; j < gridSize; j++) {
@@ -66,74 +77,126 @@ function processImage(img, cuts) {
 
 // Initialize puzzle
 function initializePuzzle(cuts) {
-    piecePositions = Array(cuts).fill(null); // Board starts empty
-    //piecePositions = Array(cuts).fill(null).map(() => ({ pieceIndex: null, rotation: 0 }));
-    availablePieces = Array.from({ length: cuts }, (_, i) => i); // All pieces in column
-    shuffle(availablePieces); // Shuffle pieces
+    piecePositions = Array(cuts).fill(null);
+    availablePieces = Array.from({ length: cuts }, (_, i) => i);
+    selectedPieceIndex = null;
+    shuffle(availablePieces);
+    
+    // Ajusta o contêiner do tabuleiro com base na proporção
+    const boardContainer = document.getElementById('puzzle-board-container');
+    boardContainer.style.aspectRatio = imageAspectRatio;
+    
+    // Define o tamanho máximo (400px para a dimensão maior)
+    if (imageAspectRatio >= 1) {
+        boardContainer.style.width = '400px';
+        boardContainer.style.height = `${400 / imageAspectRatio}px`;
+    } else {
+        boardContainer.style.width = `${400 * imageAspectRatio}px`;
+        boardContainer.style.height = '400px';
+    }
+    
     renderBoard(cuts);
     renderPieceColumn(cuts);
 }
 
-// Render puzzle board (empty grid)
-
-
-// Render puzzle board (empty grid)
+// Render puzzle board
 function renderBoard(cuts) {
     const board = document.getElementById('puzzle-board');
     board.innerHTML = '';
     board.style.display = 'grid';
     board.style.gridTemplateColumns = `repeat(${Math.sqrt(cuts)}, 1fr)`;
     board.style.gridTemplateRows = `repeat(${Math.sqrt(cuts)}, 1fr)`;
-        
+
     for (let i = 0; i < cuts; i++) {
         const cell = document.createElement('div');
         cell.className = 'puzzle-cell';
         cell.dataset.index = i;
         cell.addEventListener('dragover', dragOver);
         cell.addEventListener('drop', (e) => dropOnBoard(e, i));
+        // NEW: Add click event for placing selected piece
+        cell.addEventListener('click', () => handleBoardCellClick(i));
         if (piecePositions[i] !== null) {
             cell.style.backgroundImage = `url(${pieces[piecePositions[i]].dataUrl})`;
             cell.draggable = true;
             cell.addEventListener('dragstart', (e) => dragStart(e, i));
             if (piecePositions[i] === i) {
-                // Peça na posição correta: aplica o efeito de brilho
                 cell.classList.add('glow-effect');
-                // Remove a classe após a animação (2 segundos, ajustável)
                 setTimeout(() => {
                     cell.classList.remove('glow-effect');
                 }, 2000);
-                //corretas = corretas + 1;
-            }
-            if (piecePositions[i] !== i) {
-                // Peça na posição correta: aplica o efeito de brilho
+            } else {
                 cell.classList.add('glow-effect1');
-                // Remove a classe após a animação (2 segundos, ajustável)
                 setTimeout(() => {
                     cell.classList.remove('glow-effect1');
                 }, 2000);
             }
-            
         }
-        
-        board.appendChild(cell); // Adiciona a célula ao tabuleiro
-        
+        board.appendChild(cell);
     }
-    if(availablePieces.length === cuts){
+
+    if (availablePieces.length === cuts) {
         total = 0;
-    }else{
+    } else {
         total = total + 1;
     }
     corretas = 0;
-    renderProgress(corretas,total);
+    renderProgress(corretas, total);
 }
 
-function renderProgress(corretas,total) {
-    for(i=0;i < piecePositions.length -1;i++){
-        if(piecePositions[i] === i) corretas = corretas + 1;
+// NEW: Handle click on board cell to place selected piece
+function handleBoardCellClick(cellIndex) {
+    if (selectedPieceIndex === null) return; // No piece selected
+
+    if (piecePositions[cellIndex] === null) {
+        // Place piece in empty cell
+        piecePositions[cellIndex] = selectedPieceIndex;
+        availablePieces = availablePieces.filter(p => p !== selectedPieceIndex);
+    } else {
+        // Swap with existing piece
+        availablePieces.push(piecePositions[cellIndex]);
+        piecePositions[cellIndex] = selectedPieceIndex;
+        availablePieces = availablePieces.filter(p => p !== selectedPieceIndex);
     }
-    document.getElementById("corretas").textContent = "Certas: "+ corretas;
-    document.getElementById("total").textContent = "Tentativas: " + total;
+
+    selectedPieceIndex = null; // Clear selection
+    const cuts = parseInt(document.getElementById('cuts').value);
+    renderBoard(cuts);
+    renderPieceColumn(cuts);
+    verifyPuzzle(cuts); // Verify after placement
 }
+
+
+
+// Render piece column
+//function renderPieceColumn(cuts) {
+  //  const column = document.getElementById('piece-column');
+   // column.innerHTML = '';
+   // const gridSize = Math.sqrt(cuts);
+   // const pieceSize = 400 / gridSize; // Match board cell size (400px / gridSize)
+   // availablePieces.forEach((pieceIndex,i) => {
+   //     const pieceElement = document.createElement('div');
+   //     pieceElement.className = 'puzzle-piece';
+   //     pieceElement.style.width = `${pieceSize}px`; // Same as board cell
+   //     pieceElement.style.minHeight = `${pieceSize}px`; // Same as board cell
+   //     /*pieceElement.style.width = `80%`; // Same as board cell
+   //     pieceElement.style.minHeight = `15%`; // Same as board cell*/
+   //     pieceElement.style.margin = '2% 0'; // Small margin for spacing
+   //     //console.log("pieceIndex",pieceIndex,i,"pieces",pieces)
+   //     pieceElement.style.backgroundImage = `url(${pieces[pieceIndex].dataUrl})`;
+   //     //pieceElement.style.backgroundImage = `url(${pieces[piecePositions[i]].dataUrl})`;
+   //     pieceElement.draggable = true;
+   //     pieceElement.dataset.pieceIndex = pieceIndex;
+   //     pieceElement.addEventListener('dragstart', (e) => dragStart(e, pieceIndex, true));
+   //     column.appendChild(pieceElement);
+   // });
+    // Log content height for debugging
+    //console.log('Piece size:', pieceSize, 'Total height:', availablePieces.length * (pieceSize + 10));
+//}
+
+
+
+
+
 
 // Render piece column
 function renderPieceColumn(cuts) {
@@ -155,21 +218,38 @@ function renderPieceColumn(cuts) {
         pieceElement.draggable = true;
         pieceElement.dataset.pieceIndex = pieceIndex;
         pieceElement.addEventListener('dragstart', (e) => dragStart(e, pieceIndex, true));
+        pieceElement.addEventListener('click', () => handlePieceClick(pieceIndex));
+        if (pieceIndex === selectedPieceIndex) {
+            pieceElement.classList.add('selected');
+        }
         column.appendChild(pieceElement);
     });
     // Log content height for debugging
     console.log('Piece size:', pieceSize, 'Total height:', availablePieces.length * (pieceSize + 10));
 }
 
+// NEW: Handle piece click to select/deselect
+function handlePieceClick(pieceIndex) {
+    if (selectedPieceIndex === pieceIndex) {
+        selectedPieceIndex = null; // Deselect if clicked again
+    } else {
+        selectedPieceIndex = pieceIndex; // Select piece
+    }
+    const cuts = parseInt(document.getElementById('cuts').value);
+    renderPieceColumn(cuts); // Re-render to update selection highlight
+}
+
 // Drag-and-drop functions
 function dragStart(e, index, fromColumn = false) {
     e.dataTransfer.setData('text', JSON.stringify({ index, fromColumn }));
+    selectedPieceIndex = null; // NEW: Clear selection on drag
+    const cuts = parseInt(document.getElementById('cuts').value);
+    renderPieceColumn(cuts); // NEW: Update column to remove selection highlight
 }
 
 function dragOver(e) {
     e.preventDefault();
 }
-
 
 async function dropOnBoard(e, cellIndex) {
     e.preventDefault();
@@ -177,7 +257,6 @@ async function dropOnBoard(e, cellIndex) {
     const { index, fromColumn } = data;
 
     if (fromColumn) {
-        // Drag from column to board
         if (piecePositions[cellIndex] === null) {
             piecePositions[cellIndex] = index;
             availablePieces = availablePieces.filter(p => p !== index);
@@ -187,7 +266,6 @@ async function dropOnBoard(e, cellIndex) {
             availablePieces = availablePieces.filter(p => p !== index);
         }
     } else {
-        // Drag from board to board
         if (piecePositions[cellIndex] === null) {
             piecePositions[cellIndex] = piecePositions[index];
             piecePositions[index] = null;
@@ -196,15 +274,19 @@ async function dropOnBoard(e, cellIndex) {
         }
     }
 
-    renderBoard(document.getElementById('cuts').value);
-    renderPieceColumn(document.getElementById('cuts').value);
+    const cuts = parseInt(document.getElementById('cuts').value);
+    renderBoard(cuts);
+    renderPieceColumn(cuts);
+    verifyPuzzle(cuts); // Verify after drop
+}
 
-    // Validate puzzle
+// NEW: Extracted verify logic for reuse
+async function verifyPuzzle(cuts) {
     try {
         const response = await fetch('/api/puzzle/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ piecePositions: piecePositions.map(p => p !== null ? p : -1), cuts: parseInt(document.getElementById('cuts').value) })
+            body: JSON.stringify({ piecePositions: piecePositions.map(p => p !== null ? p : -1), cuts })
         });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -216,6 +298,16 @@ async function dropOnBoard(e, cellIndex) {
     } catch (error) {
         console.error('Error verifying puzzle:', error);
     }
+}
+
+// Render progress
+function renderProgress(corretas, total) {
+    corretas = 0;
+    for (let i = 0; i < piecePositions.length; i++) {
+        if (piecePositions[i] === i) corretas += 1;
+    }
+    document.getElementById("corretas").textContent = "Certas: " + corretas;
+    document.getElementById("total").textContent = "Tentativas: " + total;
 }
 
 // Shuffle array
@@ -240,7 +332,7 @@ function startPuzzle() {
             img.src = e.target.result;
             img.onload = () => {
                 currentImage = img;
-                previewImage.src = img.src; // Atualiza miniatura
+                previewImage.src = img.src;
                 previewImage.style.display = 'block';
                 processImage(img, cuts);
             };
@@ -251,7 +343,7 @@ function startPuzzle() {
         img.src = imageSelect;
         img.onload = () => {
             currentImage = img;
-            previewImage.src = img.src; // Atualiza miniatura
+            previewImage.src = img.src;
             previewImage.style.display = 'block';
             processImage(img, cuts);
         };
@@ -277,9 +369,6 @@ document.getElementById('cuts').addEventListener('change', () => {
         startPuzzle();
     }
 });
-
-
-
 
 // Initialize
 loadImageLibrary();

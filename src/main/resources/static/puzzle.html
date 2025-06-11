@@ -23,8 +23,10 @@
                     <div id="puzzle-preview" style="min-width: 25%; min-height: 30%;">
                         <img id="preview-image" src="" alt="Imagem do Puzzle" style="display: none;">
                     </div>
-                    <div id="puzzle-board" style="min-width: 55%; min-height: 80%;"></div>
-                    <div id="piece-column" style="min-width: 15%; min-height: 90%; overflow-y: auto; margin-right: 5%;" ></div>
+                    <div id="puzzle-board-container"> <!-- Novo contêiner -->
+                        <div id="puzzle-board"></div>
+                    </div>
+                    <div id="piece-column" style="min-width: 15%; min-height: 90%; overflow-y: auto; margin-right: 5%;"></div>
                 </div>
                 <div style="width: 13%; margin-left: 2%; margin-top: 1%;" class="div-cuts">
                     <label for="cuts" style="font-size: 14; margin-left: 3%;" id="titulo-cuts">Número de cortes:</label>
