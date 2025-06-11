@@ -5,6 +5,7 @@ let availablePieces = []; // Tracks pieces in the column
 let corretas = 0;
 let total = 0;
 let selectedPieceIndex = null; // NEW: Tracks the currently selected piece
+let selectedPieceIndexAnt = null; // NEW: Tracks the currently selected piece
 // Variável global para armazenar a proporção da imagem
 let imageAspectRatio = 1;
 
@@ -102,6 +103,7 @@ function initializePuzzle(cuts) {
 // Render puzzle board
 function renderBoard(cuts) {
     const board = document.getElementById('puzzle-board');
+    let test = false;
     board.innerHTML = '';
     board.style.display = 'grid';
     board.style.gridTemplateColumns = `repeat(${Math.sqrt(cuts)}, 1fr)`;
@@ -119,18 +121,20 @@ function renderBoard(cuts) {
             cell.style.backgroundImage = `url(${pieces[piecePositions[i]].dataUrl})`;
             cell.draggable = true;
             cell.addEventListener('dragstart', (e) => dragStart(e, i));
-            if (piecePositions[i] === i) {
-                cell.classList.add('glow-effect');
-                setTimeout(() => {
-                    cell.classList.remove('glow-effect');
-                }, 2000);
+            if(piecePositions[i] === i){
+                    cell.classList.add('glow-effect');
+                    setTimeout(() => {
+                        cell.classList.remove('glow-effect');
+                    }, 2000);
             } else {
                 cell.classList.add('glow-effect1');
                 setTimeout(() => {
                     cell.classList.remove('glow-effect1');
                 }, 2000);
             }
+
         }
+
         board.appendChild(cell);
     }
 
@@ -145,9 +149,21 @@ function renderBoard(cuts) {
 
 // NEW: Handle click on board cell to place selected piece
 function handleBoardCellClick(cellIndex) {
-    if (selectedPieceIndex === null) return; // No piece selected
+    
+    if (selectedPieceIndex === null && piecePositions[cellIndex] !== null){
+        selectedPieceIndexAnt = cellIndex;
+        const cell = document.getElementById('puzzle-board');
+        const cellDiv = cell.children[cellIndex];
+        cellDiv.classList.add('selected');
+        return;
+    } 
 
-    if (piecePositions[cellIndex] === null) {
+    if(selectedPieceIndex === null && piecePositions[cellIndex] === null && selectedPieceIndexAnt !== null){
+        piecePositions[cellIndex] = piecePositions[selectedPieceIndexAnt];
+        piecePositions[selectedPieceIndexAnt] = null;
+        selectedPieceIndexAnt = null;
+        
+    }else if(piecePositions[cellIndex] === null) {
         // Place piece in empty cell
         piecePositions[cellIndex] = selectedPieceIndex;
         availablePieces = availablePieces.filter(p => p !== selectedPieceIndex);
@@ -158,7 +174,11 @@ function handleBoardCellClick(cellIndex) {
         availablePieces = availablePieces.filter(p => p !== selectedPieceIndex);
     }
 
-    selectedPieceIndex = null; // Clear selection
+    //if(aux !== true){
+        selectedPieceIndex = null; // Clear selection
+        //aux = false;
+    //}
+    
     const cuts = parseInt(document.getElementById('cuts').value);
     renderBoard(cuts);
     renderPieceColumn(cuts);
@@ -211,7 +231,7 @@ function renderPieceColumn(cuts) {
         pieceElement.style.minHeight = `${pieceSize}px`; // Same as board cell
         /*pieceElement.style.width = `80%`; // Same as board cell
         pieceElement.style.minHeight = `15%`; // Same as board cell*/
-        pieceElement.style.margin = '2% 0'; // Small margin for spacing
+        pieceElement.style.margin = '1% 0'; // Small margin for spacing
         //console.log("pieceIndex",pieceIndex,i,"pieces",pieces)
         pieceElement.style.backgroundImage = `url(${pieces[pieceIndex].dataUrl})`;
         //pieceElement.style.backgroundImage = `url(${pieces[piecePositions[i]].dataUrl})`;

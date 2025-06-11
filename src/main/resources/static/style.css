@@ -172,7 +172,10 @@ footer .social-links a:hover {
     border: 3px solid #00ff00; /* Borda verde para indicar seleção */
     opacity: 0.8; /* Leve transparência */
 }
-
+.puzzle-cell.selected {
+    border: 3px solid #00ff00; /* Borda verde para indicar seleção */
+    opacity: 0.8; /* Leve transparência */
+}
 
 
 
@@ -225,7 +228,7 @@ footer .social-links a:hover {
 
 #piece-column {
     width: 70px;
-    height: 300px;
+    height: 400px;
     background-color: #f5e8c7;
     border: 2px solid #b58863;
     border-radius: 8px;
