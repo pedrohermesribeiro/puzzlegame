@@ -82,21 +82,20 @@ function initializePuzzle(cuts) {
     availablePieces = Array.from({ length: cuts }, (_, i) => i);
     selectedPieceIndex = null;
     shuffle(availablePieces);
-
+    
     // Ajusta o contêiner do tabuleiro com base na proporção
     const boardContainer = document.getElementById('puzzle-board-container');
-    boardContainer.style.setProperty('--image-aspect-ratio', imageAspectRatio);
-
-    // Define o tamanho máximo (90vw para mobile, 400px para desktop)
-    const maxSize = window.innerWidth <= 600 ? '90vw' : '400px';
+    boardContainer.style.aspectRatio = imageAspectRatio;
+    
+    // Define o tamanho máximo (400px para a dimensão maior)
     if (imageAspectRatio >= 1) {
-        boardContainer.style.width = maxSize;
-        boardContainer.style.height = `calc(${maxSize} / ${imageAspectRatio})`;
+        boardContainer.style.width = '400px';
+        boardContainer.style.height = `${400 / imageAspectRatio}px`;
     } else {
-        boardContainer.style.width = `calc(${maxSize} * ${imageAspectRatio})`;
-        boardContainer.style.height = maxSize;
+        boardContainer.style.width = `${400 * imageAspectRatio}px`;
+        boardContainer.style.height = '400px';
     }
-
+    
     renderBoard(cuts);
     renderPieceColumn(cuts);
 }
@@ -224,28 +223,29 @@ function renderPieceColumn(cuts) {
     const column = document.getElementById('piece-column');
     column.innerHTML = '';
     const gridSize = Math.sqrt(cuts);
-    const pieceSize = window.innerWidth <= 600 ? 60 : 400 / gridSize; // 60px on mobile, dynamic on desktop
-    availablePieces.forEach((pieceIndex) => {
+    const pieceSize = 400 / gridSize; // Match board cell size (400px / gridSize)
+    availablePieces.forEach((pieceIndex,i) => {
         const pieceElement = document.createElement('div');
         pieceElement.className = 'puzzle-piece';
-        pieceElement.style.width = `${pieceSize}px`;
-        pieceElement.style.height = `${pieceSize}px`;
+        pieceElement.style.width = `${pieceSize}px`; // Same as board cell
+        pieceElement.style.minHeight = `${pieceSize}px`; // Same as board cell
+        /*pieceElement.style.width = `80%`; // Same as board cell
+        pieceElement.style.minHeight = `15%`; // Same as board cell*/
+        pieceElement.style.margin = '1% 0'; // Small margin for spacing
+        //console.log("pieceIndex",pieceIndex,i,"pieces",pieces)
         pieceElement.style.backgroundImage = `url(${pieces[pieceIndex].dataUrl})`;
+        //pieceElement.style.backgroundImage = `url(${pieces[piecePositions[i]].dataUrl})`;
         pieceElement.draggable = true;
         pieceElement.dataset.pieceIndex = pieceIndex;
         pieceElement.addEventListener('dragstart', (e) => dragStart(e, pieceIndex, true));
         pieceElement.addEventListener('click', () => handlePieceClick(pieceIndex));
-        // Add double-tap support for mobile
-        pieceElement.addEventListener('dblclick', () => {
-            if (window.innerWidth <= 600) {
-                handlePieceDoubleTap(pieceIndex, cuts);
-            }
-        });
         if (pieceIndex === selectedPieceIndex) {
             pieceElement.classList.add('selected');
         }
         column.appendChild(pieceElement);
     });
+    // Log content height for debugging
+    console.log('Piece size:', pieceSize, 'Total height:', availablePieces.length * (pieceSize + 10));
 }
 
 // NEW: Handle piece click to select/deselect
@@ -257,18 +257,6 @@ function handlePieceClick(pieceIndex) {
     }
     const cuts = parseInt(document.getElementById('cuts').value);
     renderPieceColumn(cuts); // Re-render to update selection highlight
-}
-
-function handlePieceDoubleTap(pieceIndex, cuts) {
-    // Find the first empty cell on the board
-    const emptyCellIndex = piecePositions.findIndex(p => p === null);
-    if (emptyCellIndex !== -1) {
-        piecePositions[emptyCellIndex] = pieceIndex;
-        availablePieces = availablePieces.filter(p => p !== pieceIndex);
-        renderBoard(cuts);
-        renderPieceColumn(cuts);
-        verifyPuzzle(cuts);
-    }
 }
 
 // Drag-and-drop functions
@@ -326,7 +314,6 @@ async function verifyPuzzle(cuts) {
         const result = await response.text();
         if (result === 'Correto!') {
             alert('Parabéns! Você montou o puzzle!');
-            document.querySelector('footer').style.display = 'block'; // Show footer
         }
     } catch (error) {
         console.error('Error verifying puzzle:', error);
@@ -341,7 +328,6 @@ function renderProgress(corretas, total) {
     }
     document.getElementById("corretas").textContent = "Certas: " + corretas;
     document.getElementById("total").textContent = "Tentativas: " + total;
-    document.querySelector('.div-progress').style.setProperty('--progress', corretas / piecePositions.length);
 }
 
 // Shuffle array

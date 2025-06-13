@@ -260,186 +260,113 @@ footer .social-links a:hover {
     object-fit: contain;
 }
 
-.div-progress::after {
-    content: '';
-    display: block;
-    width: calc(100% * var(--progress, 0));
-    height: 5px;
-    background-color: #b58863;
-    border-radius: 3px;
-    margin-top: 5px;
-}
-
 /* Ajustes para dispositivos móveis */
 @media (max-width: 600px) {
-    body {
-        padding-bottom: 20px; /* Prevent footer overlap */
-    }
-
     .puzzle-layout {
-        flex-direction: column;
+        min-width: 100%;
+        flex-direction: column; /* Empilha os elementos */
         align-items: center;
-        width: 100%;
-        padding: 10px;
-        margin: 0 auto;
-    }
-
-    header {
-        padding: 8px 15px;
-        height: 40px;
-    }
-
-    header h1 {
-        font-size: 1rem; /* Smaller but readable */
-        top: 50%;
-        transform: translate(-50%, -50%);
-        left: 50%;
-    }
-
-    main {
-        margin-top: 50px; /* Account for fixed header */
-    }
-
-    #puzzle-preview {
-        width: 80px;
-        height: 80px;
-        margin: 10px 0;
-        border-radius: 6px;
-    }
-
-    #preview-image {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
     }
 
     #puzzle-board-container {
-        max-width: 90vw; /* Use viewport width for responsiveness */
+        max-width: 300px; /* Reduz tamanho em telas pequenas */
         width: 100%;
-        aspect-ratio: var(--image-aspect-ratio, 1); /* Set via JS */
-        margin: 10px 0;
     }
 
     #puzzle-board {
-        width: 100%;
-        height: 100%;
-        border-radius: 6px;
-    }
-
-    .puzzle-cell {
-        border: 1px solid #b58863; /* Match theme */
-        min-width: 0; /* Prevent overflow */
-        min-height: 0;
-        background-size: cover; /* Better for touch */
-        touch-action: none; /* Prevent default touch behaviors */
+        max-width: 100%;
+        max-height: 100%;
     }
 
     #piece-column {
-        display: flex;
-        flex-direction: row; /* Horizontal scroll */
-        overflow-x: auto;
-        overflow-y: hidden;
-        width: 90vw;
-        height: auto;
-        padding: 5px;
-        background-color: #f5e8c7;
-        border: 2px solid #b58863;
-        border-radius: 6px;
-        margin: 10px 0;
-        white-space: nowrap; /* Keep pieces in a row */
+        min-width: 100px; /* Ajustado para telas menores */
+        max-height: 200px;
+        margin-top: 10px;
     }
 
     .puzzle-piece {
-        width: 60px; /* Smaller for mobile */
-        height: 60px;
-        min-width: 60px; /* Ensure consistent size */
-        margin: 0 5px;
-        border-radius: 4px;
-        background-size: cover;
-        touch-action: manipulation; /* Better touch handling */
-        transition: transform 0.2s; /* Smooth tap feedback */
+        width: 80px; /* Tamanho menor em telas pequenas */
+        height: 80px; /* Ajustado dinamicamente via JS */
+        margin: 3px 0;
     }
 
-    .puzzle-piece:active {
-        transform: scale(1.1); /* Visual feedback on tap */
+    #puzzle-preview {
+        width: 100px;
+        height: 100px;
+        margin-top: 10px;
     }
 
-    .puzzle-piece.selected, .puzzle-cell.selected {
-        border: 2px solid #00ff00;
-        opacity: 0.9;
-    }
-
-    .puzzle-controls {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 90vw;
-        gap: 10px;
-    }
-
-    .control-group {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .control-group label {
-        font-size: 0.85rem;
-        margin-bottom: 5px;
-    }
-
-    .control-group select,
-    .control-group input[type="file"] {
-        width: 100%;
-        padding: 8px;
-        font-size: 0.9rem;
-        border-radius: 4px;
-        border: 1px solid #b58863;
-    }
-
-    .cta-button {
-        width: 100%;
-        padding: 10px;
-        font-size: 0.9rem;
-        border-radius: 4px;
-        background-color: #b58863;
-        border: none;
-        cursor: pointer;
-        touch-action: manipulation;
-    }
-
-    .div-progress {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #b58863;
-        border-radius: 4px;
-        font-size: 0.85rem;
-        text-align: center;
-    }
-
-    .div-placar label {
-        font-size: 0.85rem;
-    }
-
-    footer {
-        display: none; /* Hide footer to save space, show on completion if needed */
-    }
-
-    /* Custom horizontal scrollbar */
-    #piece-column::-webkit-scrollbar {
-        height: 6px;
-    }
-    #piece-column::-webkit-scrollbar-track {
-        background: #f0d9b5;
-        border-radius: 3px;
-    }
-    #piece-column::-webkit-scrollbar-thumb {
-        background: #b58863;
-        border-radius: 3px;
-    }
-    #piece-column::-webkit-scrollbar-thumb:hover {
-        background: #966c4b;
-    }
+    #preview-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Mantém proporção da imagem */
 }
+
+
+header h1 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 70%;
+    position: absolute;
+    left: 46%;
+    transform: translateX(-50%);
+    top: 35%;
+    margin: 0;
+}
+
+#titulo-cuts{
+    font-size: 80%;
+    min-width: 100%;
+}
+
+#titulo-image{
+    font-size: 80%;
+    min-width: 100%;
+}
+
+.div-cuts{
+    min-width: 100%;
+    margin-top: -20%;
+}
+
+.div-select-image{
+    min-width: 100%;
+    margin-top: -50%;
+}
+
+.div-btn-iniciar{
+    margin-top: 0%;
+    margin-left: 5%;
+}
+
+.div-progress{
+    margin-top: 0%;
+    display: flex;
+    align-items: end;
+    font-size: 80%;
+}
+
+header {
+    background-color: #566296;
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 98%;
+    max-height: 2%;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+    
+.div-placar{
+    font-size: 80%;
+}
+
+.cta-button{
+    font-size: 80%;
+    max-height: 70%;
+}
+}
+
 

@@ -18,48 +18,45 @@
 
     <main style="margin-top: 7%;">
         <section id="puzzle">
-            <div class="puzzle-layout">
-                <!-- Preview Image -->
-                <div id="puzzle-preview">
-                    <img id="preview-image" src="" alt="Imagem do Puzzle" style="display: none;">
+            <div class="row" style="width: 100%;">
+                <div class="puzzle-layout" style="width: 60%; float: right;">
+                    <div id="puzzle-preview" style="min-width: 25%; min-height: 30%;">
+                        <img id="preview-image" src="" alt="Imagem do Puzzle" style="display: none;">
+                    </div>
+                    <div id="puzzle-board-container"> <!-- Novo contêiner -->
+                        <div id="puzzle-board"></div>
+                    </div>
+                    <div id="piece-column" style="min-width: 15%; min-height: 90%; overflow-y: auto; margin-right: 5%;"></div>
                 </div>
-                <!-- Puzzle Board -->
-                <div id="puzzle-board-container">
-                    <div id="puzzle-board"></div>
+                <div style="width: 13%; margin-left: 2%; margin-top: 1%;" class="div-cuts">
+                    <label for="cuts" style="font-size: 14; margin-left: 3%;" id="titulo-cuts">Número de cortes:</label>
+                    <select id="cuts">
+                        <option value="16">4x4 (16 peças)</option>
+                        <option value="36">6x6 (36 peças)</option>
+                        <option value="64">8x8 (64 peças)</option>
+                    </select>
                 </div>
-                <!-- Piece Column (Horizontal on Mobile) -->
-                <div id="piece-column"></div>
-                <!-- Controls Group -->
-                <div class="puzzle-controls">
-                    <div class="control-group div-cuts">
-                        <label for="cuts" id="titulo-cuts">Número de cortes:</label>
-                        <select id="cuts">
-                            <option value="16">4x4 (16 peças)</option>
-                            <option value="36">6x6 (36 peças)</option>
-                            <option value="64">8x8 (64 peças)</option>
-                        </select>
-                    </div>
-                    <div class="control-group div-select-image">
-                        <label for="image-select" id="titulo-image">Escolher da biblioteca:</label>
-                        <select id="image-select">
-                            <option value="">Selecione uma imagem</option>
-                        </select>
-                    </div>
-                    <div class="control-group div-upload-image">
-                        <label for="image-upload">Carregar imagem:</label>
-                        <input type="file" id="image-upload" accept="image/*">
-                    </div>
-                    <div class="control-group div-btn-iniciar">
-                        <button class="cta-button" onclick="startPuzzle()">Iniciar Puzzle</button>
-                    </div>
-                    <div class="control-group div-progress">
-                        <label>Progresso:</label>
-                        <div class="div-placar">
-                            <label id="corretas"></label>
-                            <label id="total"></label>
-                        </div>
+                <div style="width: 13%; margin-left: 2%; margin-top: 1%;" class="div-select-image">
+                    <label for="image-select" style="font-size: 14; margin-left: 2%;" id="titulo-image">Escolher da biblioteca:</label>
+                    <select id="image-select" style="margin-left: 3%;">
+                        <option value="">Selecione uma imagem</option>
+                    </select>
+                </div>
+                <div style="margin-left: 2%; margin-top: 1%;" class="div-btn-iniciar">
+                    <canvas id="puzzle-canvas" style="display: none; margin-top: 30%;"></canvas>
+                    <button class="cta-button" onclick="startPuzzle()">Iniciar Puzzle</button>
+                </div>
+                <div  class="progress" style="margin-top: 2%; margin-left: 2%; min-width: 160px;" class="div-progress">
+                    <label for="image-upload" style="margin-left: 3%; font-size: 80%;">Progresso:</label><br>
+                    <div class="div-placar">
+                        <label id="corretas" style="margin-left: 3%; font-size: 80%;"></label>
+                        <label id="total" style="margin-left: 3%; font-size: 80%;"></label>
                     </div>
                 </div>
+            </div>
+            <div style="margin-top: 4%; margin-left: 2%;">
+                <label for="image-upload">Carregar imagem:</label><br>
+                <input type="file" id="image-upload" accept="image/*">
             </div>
         </section>
     </main>
