@@ -278,15 +278,28 @@ footer .social-links a:hover {
         max-height: 100%;
     }
 
-    #piece-column {
-        min-width: 100px; /* Ajustado para telas menores */
-        max-height: 200px;
-        margin-top: 10px;
+#piece-column {
+        display: flex;
+        flex-direction: row; /* Horizontal scroll */
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 90vw;
+        height: 60px;
+        min-width: 600px;
+        min-height: 80px;
+        padding: 5px;
+        background-color: #f5e8c7;
+        border: 2px solid #b58863;
+        border-radius: 6px;
+        margin-left: 4%;
+        white-space: nowrap; /* Keep pieces in a row */
     }
 
     .puzzle-piece {
         width: 80px; /* Tamanho menor em telas pequenas */
         height: 80px; /* Ajustado dinamicamente via JS */
+        min-width: 60px;
+        min-height: 60px;
         margin: 3px 0;
     }
 
