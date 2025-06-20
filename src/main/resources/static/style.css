@@ -104,8 +104,8 @@ header {
     top: 0;
     left: 0;
     width: 98%;
-    height: 7%;
-    min-height: 7%;
+    height: 4%;
+    min-height: 5%;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -260,31 +260,12 @@ footer .social-links a:hover {
     object-fit: contain;
 }
 
-#div-puzzle-logo {
-    width: 100px;
-    height: 130px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: -42px;
-    margin-left: 15px;
-}
-
-#puzzle-logo {
-    width: 50px;
-    height: 60px;
-    border: 2px solid #b58863;
-    border-radius: 8px;
-}
-
 /* Ajustes para dispositivos móveis */
 @media (max-width: 600px) {
-
     .puzzle-layout {
         min-width: 100%;
         flex-direction: column; /* Empilha os elementos */
         align-items: center;
-        margin-top: 11%;
     }
 
     #puzzle-board-container {
@@ -295,10 +276,6 @@ footer .social-links a:hover {
     #puzzle-board {
         max-width: 100%;
         max-height: 100%;
-    }
-
-    #puzzle-logo{
-        margin-top: 5px;
     }
 
 #piece-column {
@@ -333,9 +310,9 @@ footer .social-links a:hover {
     }
 
     #preview-image {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain; /* Mantém proporção da imagem */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Mantém proporção da imagem */
 }
 
 
@@ -362,7 +339,7 @@ header h1 {
 
 .div-cuts{
     min-width: 100%;
-    margin-top: -40%;
+    margin-top: -20%;
 }
 
 .div-select-image{
@@ -390,7 +367,7 @@ header {
     top: 0;
     left: 0;
     width: 98%;
-    max-height: 15px;
+    max-height: 2%;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -402,10 +379,6 @@ header {
 .cta-button{
     font-size: 80%;
     max-height: 70%;
-}
-
-#image-select{
-    max-width: 155px;
 }
 }
 
